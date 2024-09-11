@@ -38,6 +38,7 @@ public class Payment {
 
     @NotBlank
     @Size(max = 7)
+    @Column(name = "expiration_date")
     private String expirationDate;
 
     @NotBlank
@@ -49,8 +50,10 @@ public class Payment {
     private Status status;
 
     @NotNull
+    @Column(name = "order_id")
     private Long orderId;
 
     @NotNull
+    @Column(name = "payment_method_id")
     private Long paymentMethodId;
 }
