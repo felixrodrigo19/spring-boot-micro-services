@@ -1,7 +1,10 @@
 package br.com.msproject.orders.dto;
 
 import br.com.msproject.orders.model.Status;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,7 +20,4 @@ public class OrderDto {
     private LocalDateTime dateTime;
     private Status status;
     private List<OrderItemDto> items = new ArrayList<>();
-
-
-
 }
