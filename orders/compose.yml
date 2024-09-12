@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+
+  db_orders:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order-service
+    ports:
+      - "3307:3306"
