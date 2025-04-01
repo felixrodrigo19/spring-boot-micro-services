@@ -1,0 +1,50 @@
+services:
+
+  db_payment:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payment_service
+    ports:
+      - "3306:3306"
+      
+  db_orders:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: order_service
+    ports:
+      - "3307:3306"
+   
+  orders_service:
+    build:
+      context: ./orders
+    container_name: orders_service
+    restart: always
+    depends_on:
+      - db_orders
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://dbdb_orders_payment:3306/order_service?useSSL=false&createDatabaseIfNotExist=true
+ 
+  payments_service:
+    build:
+      context: ./payments
+    container_name: payments_service
+    restart: always
+    depends_on:
+      - db_payment
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_payment:3306/payment_service?useSSL=false&createDatabaseIfNotExist=true
+      
+  service_discovery:
+    build: 
+      context: ./server
+    container_name: service_discovery
+    restart: always
+    ports:
+      - "9000:9000"
+    depends_on:
+      - orders_service
+      - payments_service
